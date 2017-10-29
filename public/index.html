@@ -1,17 +1,31 @@
 <head>
-<title>Michael Karpinski</title>
+<title>Transfer Form</title>
 </head>
 
 <body>
-<h1>Michael Karpinski</h1>
-<form enctype='multipart/form-data' action='/api/newclient' method='post'>
-  <label>Habbo Name: </label><input name='Habbo Name'><br/>
-  <label>Habbo Creation Date: </label><input name='Creation Date'><br/>
-  <label>State all previous accounts: </label><input name='Previous Accounts'><br/>
-  <label>Why would you like to transfer? What can you bring to the United States Navy? </label><input name='Reason For Transfer and What I Can Bring'><br/>
-  <label>What rank are you expecting? </label><input name='Expected Rank'><br/>
-  <label>Why do you believe you should be given this rank? </label><input name='Reason For Expected Rank'/><br/>
-  <label>References: </label><input name='References'><br/>
+<h1>Transfer Form</h1>
+<form enctype='multipart/form-data' action='/api/newclient' method='post' id="transfer_form">
+  <label>Habbo Name: </label>
+  <input name='Habbo Name'><br/>
+
+  <label>Habbo Creation Date: </label>
+  <input name='Creation Date' type="date"><br/>
+
+  <label>State all previous accounts: </label>
+  <input name="Previous Accounts" form="transfer_form" /><br/>
+
+  <label>Why would you like to transfer? What can you bring to the United States Navy?</label>
+  <textarea name='Reason For Transfer and What I Can Bring' form="transfer_form"></textarea><br/>
+
+  <label>What rank are you expecting? </label>
+  <input name='Expected Rank'><br/>
+
+  <label>Why do you believe you should be given this rank? </label>
+  <textarea name='Reason For Expected Rank' form="transfer_form"></textarea><br/>
+  
+  <label>References: </label>
+  <input name='References'><br/>
+  
   <input type='submit' name='submit'/>
 </form>
 

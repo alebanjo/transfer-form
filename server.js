@@ -55,9 +55,7 @@ app.post('/api/newclient', function (req, res, next) {
 		let emailContents = "";
 		Object.keys(req.body).forEach(function(key) {
 			let currentValue = req.body[key]
-			let testString = key + ": " + currentValue + "\n"
-			console.log(testString)
-			emailContents += testString
+			if(key != 'submit') emailContents += (key + ": " + currentValue + "\n")
 		})
 
 		let mailOptions = {
