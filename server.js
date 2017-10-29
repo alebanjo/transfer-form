@@ -3,6 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+//store values for email constants
+const emailUser = process.env.EMAIL_USER
+const emailPass = process.env.EMAIL_PASS
+const emailReceiver = process.env.EMAIL_RECEIVER
+
 //multer setup
 const multer  = require('multer');
 const storage = multer.diskStorage({
@@ -20,8 +25,8 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    user: emailUser,
+    pass: emailPass
   }
 });
 
@@ -43,21 +48,23 @@ app.post('/api/newclient', function (req, res, next) {
 		if(err){
 			throw err;
 		}
-		var attachments = [{ 
-			filename: req.file.originalname, 
-			path: req.file.path
-		}];
+
+		console.log(typeof req.body)
+
+		//generate string
+		let emailContents = "";
+		Object.keys(req.body).forEach(function(key) {
+			let currentValue = req.body[key]
+			let testString = key + ": " + currentValue + "\n"
+			console.log(testString)
+			emailContents += testString
+		})
+
 		let mailOptions = {
-			from: '"Bot" <'+process.env.EMAIL_USER+'>',
-			to: process.env.EMAIL_RECEIVER,
-			subject: 'Hello',
-			text: `
-			First name: ${req.body.firstName}\n
-			Last name: ${req.body.lastName}\n
-			E-mail address: ${req.body.email}\n
-			Phone number: ${req.body.phoneNumber}\n
-			Best time to call: ${req.body.bestTime}\n`,
-			attachments: attachments
+			from: '"Bot" <' + emailUser + '>',
+			to: emailReceiver,
+			subject: 'Transfer Form for ' + req.body["Habbo Name"],
+			text: emailContents
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
