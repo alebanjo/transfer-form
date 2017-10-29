@@ -49,8 +49,6 @@ app.post('/api/newclient', function (req, res, next) {
 			throw err;
 		}
 
-		console.log(typeof req.body)
-
 		//generate string
 		let emailContents = "";
 		Object.keys(req.body).forEach(function(key) {
@@ -71,6 +69,10 @@ app.post('/api/newclient', function (req, res, next) {
 		});
 		res.redirect('/');
 	});
+});
+
+app.get('/', function(req,res){
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('*', function(req,res){
